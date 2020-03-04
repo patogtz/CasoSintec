@@ -13,6 +13,7 @@ mongoose.connect(connectionUrl, {
     useCreateIndex: true,
     useUnifiedTopology: true
 })
+mongoose.set('useFindAndModify', false);
 app.use(express.json());
 app.use(router);
 app.use(cors())

@@ -1,7 +1,7 @@
 import express, {Request, Response} from 'express';
 const router = express.Router();
 import cors from 'cors';
-import {getProducts, updateProducts} from './controllers/product'
+import {getProducts, createProduct, updateProduct, deleteProduct} from './controllers/product'
 
 /* import auth from './middleware/auth';
 import moves from './controllers/moves'; */
@@ -14,7 +14,10 @@ router.get('/', (req : Request, res : Response) => {
     });
 });
 
-router.get('/products', getProducts);
 
+router.get('/products', getProducts);
+router.post('/product', createProduct)
+router.put('/product/:id', updateProduct);
+router.delete('/product/:id', deleteProduct);
 
 export default router
