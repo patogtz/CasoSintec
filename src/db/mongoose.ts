@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
-var connectionUrl = "mongodb+srv://patogtzc:nKKQzsOximU4El1k@cluster0-pia7w.mongodb.net/caso_sintec?retryWrites=true&w=majority"
 
+var connectionUrl = "mongodb+srv://patogtzc:" + `${process.env.DBPASSWORD}` + "@cluster0-pia7w.mongodb.net/caso_sintec?retryWrites=true&w=majority"
+console.log(process.env.DBPASSWORD)
 mongoose.connect(connectionUrl, {
     useNewUrlParser: true,
     useCreateIndex: true,

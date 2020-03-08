@@ -16,20 +16,15 @@ export const getProducts = (req: any, res: any) => {
 export const createProduct = (req: any, res: any) => {
   const product = req.body;
   const newProduct = new Product(product);
-  newProduct
-    .save()
-    .then(() => {
-      return res.send({
-        msg: "product saved properly!",
-        product: product
-      });
-    })
-    .catch(error => {
-      return res.status(400).send({
-        msg: "Error at saving the product",
-        error: error
-      });
-    });
+  newProduct.save(function(err, result) {
+    let response;
+    if (err) {
+      response = { error: true, message: "Error adding data" };
+    } else {
+      response = { error: false, message: "Data added", result: result };
+    }
+    res.json(response);
+  });
 };
 
 export const updateProduct = (req: any, res: any) => {
@@ -47,17 +42,18 @@ export const updateProduct = (req: any, res: any) => {
     });
 };
 export const deleteProduct = (req: any, res: any) => {
-const id = req.params.id;
-    Product.findByIdAndDelete(id)
-        .then(product => {
-            return res.send({
-                msg: 'product deleted properly',
-                product: product
-            });
-        }).catch(err => {
-            return res.status(400).send({
-                msg: 'Error, couldnt delete product',
-                error: err
-            });
-        });
-    }
+  const id = req.params.id;
+  Product.findByIdAndDelete(id)
+    .then(product => {
+      return res.send({
+        msg: "product deleted properly",
+        product: product
+      });
+    })
+    .catch(err => {
+      return res.status(400).send({
+        msg: "Error, couldnt delete product",
+        error: err
+      });
+    });
+};
